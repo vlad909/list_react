@@ -49,13 +49,17 @@ class ListOfTasks extends React.Component {
     componentDidMount() {
         this.setState({data: list})
         window.ee.on('List.add', (item) => {
-        let added = item.concat(this.state.data)
+            let added = item.concat(this.state.data)
             this.setState({data: added})
         })
     }
 
+    componentWillUnmount() {
+        window.ee.off('List.add')
+    }
+
     render() {
-        let  newTemplate
+        let newTemplate
         if (this.state.data.length > 0) {
             newTemplate = this.state.data.map((item, index) => {
                 return (
@@ -90,6 +94,10 @@ class Add extends React.Component {
     constructor(props) {
         super(props)
         this.addButton = this.addButton.bind(this)
+        this.rulesAccepter = this.rulesAccepter.bind(this)
+        this.state = {
+            agree: false
+        }
     }
 
     componentDidMount() {
@@ -105,6 +113,10 @@ class Add extends React.Component {
         window.ee.emit('List.add', item)
     }
 
+    rulesAccepter(e) {
+        this.setState({agree: e.target.checked})
+    }
+
     render() {
         return (
             <div>
@@ -113,9 +125,9 @@ class Add extends React.Component {
                        placeholder='author' ref="author"/>
                 <input type="text" ref="book" placeholder="book" defaultValue=""/>
                 <label htmlFor="">
-                <input type="checkbox" defaultChecked={false} ref="checkrule"/>
+                    <input onChange={this.rulesAccepter} type="checkbox" defaultChecked={false} ref="checkrule"/>
                 </label>
-                <button onClick={this.addButton}>value</button>
+                <button disabled={!this.state.agree} onClick={this.addButton}>value</button>
             </div>
         )
     }
