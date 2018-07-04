@@ -93,8 +93,8 @@ class ListOfTasks extends React.Component {
 class Add extends React.Component {
     constructor(props) {
         super(props)
-        this.addButton = this.addButton.bind(this)
-        this.rulesAccepter = this.rulesAccepter.bind(this)
+        // this.addButton = this.addButton.bind(this)
+        // this.rulesAccepter = this.rulesAccepter.bind(this)
         this.state = {
             agree: false
         }
@@ -125,9 +125,9 @@ class Add extends React.Component {
                        placeholder='author' ref="author"/>
                 <input type="text" ref="book" placeholder="book" defaultValue=""/>
                 <label htmlFor="">
-                    <input onChange={this.rulesAccepter} type="checkbox" defaultChecked={false} ref="checkrule"/>
+                    <input onChange={(e)=>this.rulesAccepter(e)} type="checkbox" defaultChecked={false} ref="checkrule"/>
                 </label>
-                <button disabled={!this.state.agree} onClick={this.addButton}>value</button>
+                <button disabled={!this.state.agree} onClick={() => this.addButton()}>value</button>
             </div>
         )
     }
