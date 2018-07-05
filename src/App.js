@@ -12,6 +12,7 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo"/>
                 </header>
                 <div className="side">
+                    <p> bla</p>
                     <Add />
                     <ListOfTasks list={list}/>
                 </div>
